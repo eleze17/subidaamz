@@ -43,7 +43,7 @@ const uploadToBucket =  async (req: reqFile) => {
 
 const storage = multer.diskStorage({
   destination: function (req: Express.Request, file: Express.Multer.File, callback: (error: Error | null, destination: string) => void) {
-   callback(null, "public/images");},
+   callback(null, "public");},
 filename: function (req: Express.Request, file: Express.Multer.File, callback: (error: Error | null, filename: string) => void) {
   
   callback(null,file.fieldname + '-' + Date.now() + '.jpg')
