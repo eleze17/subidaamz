@@ -43,11 +43,13 @@ const uploadToBucket =  async (req: reqFile) => {
 
 const storage = multer.diskStorage({
   destination: function (req: Express.Request, file: Express.Multer.File, callback: (error: Error | null, destination: string) => void) {
-   callback(null, "public");},
+   callback(null, "");
+  null
+},
 filename: function (req: Express.Request, file: Express.Multer.File, callback: (error: Error | null, filename: string) => void) {
   
   callback(null,file.fieldname + '-' + Date.now() + '.jpg')
-  
+  null
 
 }
 });
@@ -59,13 +61,14 @@ const apiRoute = nextConnect({
     res.status(405).json({ error: `Method '${req.method}' Not Allowed` });
   },
 });
+
 const uploadMiddleware =  imagenes.single('file')
 
 apiRoute.use(uploadMiddleware)
    
+export default apiRoute.post( (req:reqFile, res:NextApiResponse)=> {
 
-
-   export default apiRoute.post( (req:reqFile, res:NextApiResponse)=> {
+  console.log(req.file)
     uploadToBucket(req)
     
     .then( () =>{unlink(req.file.path, (err) => {
