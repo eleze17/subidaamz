@@ -23,7 +23,7 @@ export default async function handler(
     },
     Expires: 600, // seconds
     Conditions: [
-      ['content-length-range', 1048576, 10485760], // up to 1 MB
+      ['content-length-range', 0, 10485760], // up to 1 MB
     ],
   });
 

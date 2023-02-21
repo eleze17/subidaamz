@@ -1,23 +1,31 @@
+import styles from './index.module.css'
+
+
 export default function Upload() {
   return (
-    <>
-     <>
-      <p>Upload a .png or .jpg image (max 10MB).</p>
-      <input
+    
+     < div className={styles.contenedor}>
+      <p className={styles.principal}> Subi tus imagenes que quieras compartir.</p>
+      <input className={styles.input}
+      id= "input"
         onChange={uploadPhoto}
         type="file"
+        multiple 
         accept="image/png, image/jpeg"
       />
-    </>
+    </div>
    
-    </>
+    
   )
 }
 
 const uploadPhoto = async (e: React.ChangeEvent<HTMLInputElement>) => {
-  const file = e.target.files?.[0]!
-  console.log(file)
-  const filename = encodeURIComponent(file.name)
+  
+  let files = e.target.files || [];
+  for( let i = 0 ; i < files.length ; i++ ){
+  
+  const file = e.target.files?.[i]!
+  const filename = encodeURIComponent(file.name) + Date.now()
   const fileType = encodeURIComponent(file.type)
 
   const res = await fetch(
@@ -38,8 +46,18 @@ const uploadPhoto = async (e: React.ChangeEvent<HTMLInputElement>) => {
     mode: 'no-cors'
    }
   )
-.then(res => alert('archivo cargado')
-)
+.then(res => {alert(`archivo cargado ( ${i + 1} )` )
+
+if (i == files.length -1 ) {
+ let limpiar  =(document.getElementById('input') as HTMLInputElement)
+ limpiar.value = ""
+}
+
+})
+
+
+}
+
 }
 
 

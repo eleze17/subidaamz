@@ -1,0 +1,16 @@
+.contenedor
+{ width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    margin: 0 auto;
+
+}
+.principal , .input{
+    color: red;
+    background-color: white;
+    opacity: 80%;
+    border-radius: 20px;
+}
